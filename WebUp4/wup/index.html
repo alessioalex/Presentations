@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->  <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+	<title>What's all the fuss about Node.js?</title>
+	
+	<meta name="description" content="A jQuery library for modern HTML presentations">
+	<meta name="author" content="Caleb Troughton">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	
+	<!-- Core and extension CSS files -->
+	<link rel="stylesheet" href="../deckjs/core/deck.core.css">
+	<link rel="stylesheet" href="../deckjs/extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="../deckjs/extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="../deckjs/extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="../deckjs/extensions/status/deck.status.css">
+	<link rel="stylesheet" href="../deckjs/extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="../deckjs/extensions/codemirror/deck.codemirror.css">
+	<link rel="stylesheet" href="../deckjs/extensions/codemirror/themes/default.css">
+	
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="../deckjs/themes/style/mnml.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="../deckjs/themes/transition/horizontal-slide.css">
+	
+	<script src="../deckjs/modernizr.custom.js"></script>
+</head>
+
+<body class="deck-container">
+
+<!-- Begin slides -->
+<section class="slide" id="landing">
+  <h1>What's all the fuss about<br /> Node.js</h1>
+</section>
+<section class="slide" id="agenda">
+    <h2>Agenda</h2>
+    <ul>
+        <li><a href="#who_am_i">Who am i?</a></li>
+        <li><a href="#about_node">What is Node.js?</a></li>
+        <li><a href="#why_node">Why Node?</a></li>
+        <li><a href="#use_cases">Use cases</a></li>
+        <li><a href="#when_node_imperfect">When Node may not be the perfect solution</a></li>
+		<li><a href="#challenges">Challenges with event-based programming</a></li>
+        <li><a href="#installing">Installing</a></li>
+        <li><a href="#modules">Node has modules</a></li>
+		<li><a href="#npm">NPM - package management done right</a></li>
+		<li><a href="#helloworld">A cooler 'hello world'</li>
+		<li><a href="#callbacks">How to deal with callbacks</a></li>
+		<li><a href="#debug">How to debug Node apps</a></li>
+		<li>Great modules: <a href="#module_request">Request</a>, <a href="#jsdom">jsdom</a>, <a href="#express">Express</a>, <a href="#socketio">Socket.IO</a></li>
+		<li><a href="#demos">Demos</a></li>
+		<li><a href="#conclusions">Conclusions</a>, <a href="#resources">Resources</a> & <a href="#questions">Questions</a></li>
+    </ul>
+</section>
+<section class="slide" id="who_am_i">
+	<h2>Alexandru Vladutu</h2>
+	<p><strong>Now: </strong>JavaScript developer</p>
+    <p><strong>Before: </strong>I have previously worked as a backend developer (PHP, MySQL), coding extensions for the Joomla! CMS.</p>
+    <p>Contact:
+        <ul>
+            <li>E-mail - alexandru.vladutu@gmail.com</li>
+            <li>Twitter: @alessioalex</li>
+            <li>Github: <a href="http://github.com/alessioalex" target="_blank">@alessioalex</a></li>
+            <li><a href="http://stackoverflow.com/users/617839/alessioalex" target="_blank">StackOverflow</a></li>
+        </ul>
+        <note>You'll get to see source code in this presentation, please bear with me.</note>
+    </p>
+</section>
+
+<section class="slide" id="about_node">
+    <h2>Node.js</h2>
+    <p>
+      <ul>
+        <li>"Node's goal is to provide an easy way to build scalable network programs." - Ryan Dahl, Node.js creator</li>
+        <li>Server-side JavaScript environment (no DOM) which uses an asynchronous event-driven model.</li>
+		<li>It's single threaded.</li>
+        <li>Implemented on top of V8, the engine behind Google Chrome. The core is written in C++ and the rest in JavaScript.</li>
+        <li>Similar in design to Ruby's EventMachine and Python's Twisted</li>
+        <li>It was build from the ground up with the asynchronous architecture in mind, there are no sync libraries that you can accidentally include (and thus slow down your app)</li>
+        <li>Implements the CommonJS specification for its built-in module system</li>
+        <li>Cross platform: OSX, Linux, Windows</li>
+      </ul>
+    </p>
+</section>
+
+<section class="slide" id="why_node">
+    <h2>Why use Node?</h1>
+    <p>
+      <ul>
+        <li>It's extremely easy to do I/O programming using the event-driven model</li>
+        <li>Great tool for network related stuff, it can handle thousands of concurrent connections with minimal overhead (CPU/memory) on a single process!</li>
+        <li>Code in same language as you do in the the browser -> whole app in JavaScript - no context switching</li>
+        <li>It implements the latest ECMAScript specs (no IE6 here!)</li>
+        <li>JavaScript war: Node is fast and will get even faster, V8 will always improve</li>
+		<li>Fantastic community and lots of new modules beeing uploaded to Github daily</li>
+      </ul>
+    </p>
+</section>
+
+<section class="slide" id="use_cases">
+    <h2>Good uses cases</h2>
+    <p>
+      <ul>
+        <li>Realtime applications: games, collaborative apps, instant messaging, IRC servers/clients, you name it..</li>
+        <li>Streaming data</li>
+        <li>Inter-process communication</li>
+        <li>Cluster management</li>
+        <li>Network traffic analyzer</li>
+		<li>Proxies</li>
+        <li>JSON APIs</li>
+        <li>Single page apps</li>
+        <li>"Talking to" command line tools</li>
+        <li>etc</li>
+      </ul>
+    </p>
+</section>
+
+
+<section class="slide" id="when_node_imperfect">
+    <h2>When Node may not be the solution for your use case</h2>
+    <ul>
+        <li>Your application isn't expecting a high level of concurrency, it's a simple simple CRUD / HTML app. You are better off here using a fully-fledged web framework like Rails, Django, CakePHP for example.</li>
+        <li>CPU heavy apps with little I/O, like video encoding software or artificial intelligence. For these kind of use cases, C or C++ would be a better fit.</li>
+    </ul>
+</section>
+
+<section class="slide" id="challenges">
+    <h2>Challenges with event-based programming</h2>
+    <p>
+		With threads you build up the call stack and when you throw an error you know exactly where you came from, because there's the history of the stack. With single threaded environments the state is destroyed, because you get back down the event loop and something else happens.
+		When an error occurs you only see the line number and where it's from, but you don't know how you got there.
+	</p>
+	<h2>Bad:</h2>
+	<p>
+<div id="code" name="code" class="code" mode="javascript" style="display: none;">var http = require('http'), server;
+try {
+  server= http.createServer(function (req, res) {
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('Hello World\n');
+  }).listen(80);
+}
+catch (err) {
+  console.log(err);
+}</div>
+	</p>
+</section>
+
+<section class="slide" id="challenges2">
+	<h2>Solution:</h2>
+	<p>
+<div id="code2" name="code" class="code" mode="javascript" style="display: none;">var http = require('http'), server;	
+server = http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(80);
+
+server.on('error', function(err) {
+  console.log("There's been an error with the server :-(", err);
+});
+</div>
+	</p>
+</section>
+
+<section class="slide" id="installing">
+    <h2>Installing Node.js</h2>
+    <p>
+    There are installers for Windows, Mac and even package managers for Linux, but the best way to install it is using <a href="https://github.com/creationix/nvm" target="_blank">NVM (Node Version Manager)</a> or <a href="https://github.com/visionmedia/n" target="_blank">N</a>.
+    </p>
+    <p>
+      <strong>NVM</strong> is similar to Ruby's RVM and let's you install multiple Node versions (it will compile them) on your system and switch between them anytime (note: not available for Windows).
+    </p>
+    <p>
+      <strong>1, 2, 3.. go:</strong>
+      <ul>
+        <li>install nvm: <strong>git clone git://github.com/creationix/nvm.git ~/nvm</strong></li>
+        <li>put this into your .bashrc: <strong>. ~/nvm/nvm.sh</strong></li>
+        <li>installing a node version: <strong>nvm install v0.6.15</strong></li>
+        <li>set default node version: <strong>nvm alias default 0.6.15</strong></li>
+      </ul>
+    </p>
+    <p>You're good to go, verify that with <strong>node -v && npm -v</strong></p>
+	<p>You run node programs in the terminal with <strong>node filename.js</strong></p>
+	<p>Keep in mind that stable releases are even-numbered (0.4, 0.6), while unstable releases are odd (0.3, 0.5)</p>
+</section>
+
+<section class="slide" id="modules">
+    <h2>Node modules</h2>
+	<p>Node.js implements the CommonJS specification for its built-in modules</p>
+    <h3>A basic module</h3>
+	<p>
+<div id="code3" name="code" class="code" mode="javascript" style="display: none;">/* logger.js */
+
+var logger;
+
+logger = {
+  'info': function(msg) { console.log(':: ' + msg); },
+  'error': function(msg) { console.log('!! ' + msg); }
+}
+
+module.exports = logger;
+
+
+
+/* --------------------------------------------------*/
+
+
+
+/* app.js - run with 'node app.js' in the terminal */
+
+var logger = require('./logger');
+
+logger.info('App run successfully');
+</div>
+	</p>
+</section>
+
+<section class="slide" id="npm">
+    <h2>NPM (Node Package Manager)</h2>
+	<p><a href="http://npmjs.org/" target="_blank">NPM</a> is <strong>the</strong> package management and distribution system for Node.</p>
+	<p>When developing a project, the best thing to do is to create a <strong>package.json</strong> file with the dependencies. That way, when you deploy to a server or a different computer installing the dependencies is as easy as doing <strong> npm install .</strong></p>
+	<p><strong>Simplest package.json</strong>
+<div id="code4" name="code" class="code" mode="javascript" style="display: none;">{
+  "name": "TheNameOfYourAppHere",
+  "description": "What does my app do",
+  "version": "0.0.1",
+  "author": "John Doe",
+  "dependencies": {
+    "connect": "2.2.0",
+    "commander": "0.5.2"
+  }
+}
+</div>
+	</p>
+</section>
+
+<section class="slide" id="npm2">
+	<h2>NPM will take care of all the dependencies and their sub-dependencies</h2>
+	<p><img src="images/npm_installing.png" alt="" /></p>
+</section>
+
+<section class="slide" id="helloworld">
+	<h2>5 lines for an HTTP server - Node's 'Hello World!'</h2>
+	<p>
+<div id="code5" name="code" class="code" mode="javascript" style="display: none;">/* HTTP server - server.js */
+
+var http = require('http');
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/plain'});
+  res.end('Hello World\n');
+}).listen(1337, '127.0.0.1');
+
+
+/* --------------------------------------------------*/
+
+
+
+/* HTTP client - client.js - downloading a file */
+
+var http = require('http'),
+    fs = require('fs'),
+	options, request;
+
+options = {
+  host: 'www.google.com',
+  port: 80,
+  path: '/images/logos/ps_logo2.png'
+}
+
+request = http.get(options, function(res) {
+  var imagedata = '';
+  res.setEncoding('binary');
+
+  res.on('data', function(chunk) {
+    imagedata += chunk;
+  });
+
+  res.on('end', function() {
+    fs.writeFile('logo.png', imagedata, 'binary', function(err) {
+      if (err) { throw err; }
+      console.log('File saved.');
+    })
+  });
+
+});
+</div>
+</p>
+</section>
+
+<section class="slide" id="callbacks">
+	<h2>Dealing with callbacks</h2>
+	<p>Node is all about non-blocking, asynchronous architecture. All activities that require a long time to finish, such as database operations for example are requested and put aside until the results are ready and eventually returned via a callback function. Callback functions are invoked when the operations are done, but in the meantime Node is idle, it doesn't block.</p>
+	<p>When you start coding with Node.js, you want everything to be asynchronous so you use a lot of callbacks and then you get into a situation that's a bit messy, such as the following:</p>
+	
+<div id="code7" name="code" class="code" mode="javascript" style="display: none;">/* oh noes, callbacks :-( */
+
+checkValidIp(function(input, result1) {
+  getSomeDataFromTheDb(function(result2) {
+    getSomeOtherDataDependingOnTheFirst(function(result3) {
+      filterThatDatabaseData(function(result4) {
+        renderTemplate(function(output) {
+            // ...
+        });
+      });
+    });
+  });
+});
+</div>
+</section>
+
+<section class="slide" id="callbacks2">
+	<h2>Control flow libraries</h2>
+	<p>Instead of having indent++++, use control flow libraries like <a target="_blank" href="https://github.com/creationix/step">Step</a> or <a target="_blank" href="https://github.com/caolan/async">Async</a></p>
+
+<div id="code8" name="code" class="code" mode="javascript" style="display: none;">/* looks nicer now, doesn't it? */
+
+Step(
+  function checkIp() {
+    checkValidIp(this);
+  },
+  function getDbData(err, result1) {
+    if (err) throw err;
+    getSomeDataFromTheDb(this)
+  },
+  function getOtherData(err, result2) {
+    if (err) throw err;
+    getSomeOtherDataDependingOnTheFirst(result2, this);
+  },
+  function filterThatDatabaseData(err, result) {
+    if (err) throw err;
+	filterData(this);
+  },
+  function renderTemplate(function(output) {
+	// finally ...
+  }
+);
+</div>
+</section>
+
+<section class="slide" id="debug">
+	<h2>Node has a built-in debugger</h2>
+	<p>Execute it with <strong>node debug app.js</strong></p>
+	<p>In your app, you can set breakpoints using <strong>debugger;</strong></p>
+	<p>Nice commands: backtrace, next;, list, continue</p>
+
+<div id="code88" name="code" class="code" mode="javascript" style="display: none;">var r = require('request'), http = require('http');
+
+debugger;
+
+http.createServer(function (req, resp) {
+  if (req.url === '/robot') {
+    r.get('http://www.google.com/images/errors/robot.png').pipe(resp);
+  }
+}).listen(8080);
+</div>
+
+</section>
+
+<section class="slide" id="quicktip">
+	<h2>Never block the event loop</h2>
+	<p>Keep in mind that Node is single threaded, so like in the browser you should use setTimeout(), setInterval() or process.nextTick() (the best solution)</p>
+<div id="code8" name="code" class="code" mode="javascript" style="display: none;">/* Bad */
+for (var i = 1; i <= millions; i++) {
+  process_item(bigArray[i]);
+}
+
+
+
+/* --------------------------------------------------*/
+
+
+
+/* You should do something like.. */
+for (var i = 1; i <= millions; i++) {
+  // schedule event for the next tick of the event loop
+  process.nextTick(function() {
+    process_item(bigArray[i]);
+  });
+}</div>
+</section>
+
+<section class="slide" id="cluster">
+	<h2>Spawn more processes with Cluster to take advantage of multi-core systems</h2>
+	
+	<p>Cluster is on abstraction on top of <a target="_blank" href="http://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options">child_process.fork()</a></p>
+	
+<div id="code9" name="code" class="code" mode="javascript" style="display: none;">var cluster = require('cluster');
+var http = require('http');
+var numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster) {
+  // Fork workers.
+  for (var i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('death', function(worker) {
+    console.log('worker ' + worker.pid + ' died');
+  });
+} else {
+  // Worker processes have a http server.
+  http.Server(function(req, res) {
+    res.writeHead(200);
+    res.end("hello world\n");
+  }).listen(8000);
+}
+</div>
+	
+</section>
+
+<section class="slide" id="module_request">
+	<h2>Request - the swiss army knife of HTTP streaming</h2>
+	<strong>Use cases</strong>
+	<ul>
+		<li>With request you stream the response to a file stream</li>
+		<li>Writing proxy is really great also, all you have to do is to pipe the data into the response</li>
+	</ul>
+	<p>
+<div id="code7" name="code" class="code" mode="javascript" style="display: none;">/* speedy downloads with the request library */
+
+var request = require('request'), fs = require('fs');
+
+request('http://google.com/doodle.png').pipe(fs.createWriteStream('doodle.png'));
+
+
+
+/* --------------------------------------------------*/
+
+
+
+/* proxy with request, piping directly into response */	
+
+var r = require('request'), http = require('http');
+
+http.createServer(function (req, resp) {
+  if (req.url === '/robot') {
+    r.get('http://www.google.com/images/errors/robot.png').pipe(resp);
+  }
+}).listen(8080);
+</div>
+	</p>
+</section>
+
+
+<section class="slide" id="jsdom">
+	<h2>Node has a DOM!</h2>
+	<p>Instead of using regex, use a regular JS library like jQuery</p>
+<div id="code9" name="code" class="code" mode="javascript" style="display: none;">// Print all of the news items on hackernews
+var jsdom = require('jsdom');
+
+jsdom.env({
+  html: 'http://news.ycombinator.com/',
+  scripts: [
+    'http://code.jquery.com/jquery-1.5.min.js'
+  ],
+  done: function(errors, window) {
+    var $ = window.$;
+    console.log('HN Links');
+    $('td.title:not(:last) a').each(function() {
+      console.log(' -', $(this).text());
+    });
+  }
+});
+</div>
+</section>
+
+<section class="slide" id="express">
+	<h2>Express - web framework</h2>
+	<p>Express is a Sinatra (Ruby world) inspired web framework that's great especially for building apis. It's fast and module, you can "attach" your own middleware to the stack.</p>
+	<p>Express isn't an MVC framework, it doesn't dictate the structure of your project.</p>
+	<p>More examples: <a href="https://github.com/visionmedia/express/tree/master/examples">https://github.com/visionmedia/express/tree/master/examples</a></p>
+
+<div id="code10" name="code" class="code" mode="javascript" style="display: none;">var express = require('express')
+  , app = express.createServer();
+
+app.use(express.bodyParser());
+
+app.get('/', function(req, res){
+    res.send('Hello World');
+});
+
+app.post('/', function(req, res){
+  res.send(req.body);
+});
+
+
+app.listen(3000);
+</div>	
+</section>
+
+<section class="slide" id="socket.io">
+	<h2>Getting realtime with Socket.IO</h2>
+	<p>Socket.IO is an abstraction over different transport mechanisms and provides you a nice clean websocket-like api.</p>
+	<p>It supports even IE6, so that means everything.</p>
+	<strong>Techniques used:</strong>
+	<ul>
+      <li>WebSocket</li>
+      <li>Adobe Flash Socket</li>
+      <li>AJAX long polling</li>
+      <li>AJAX multipart streaming</li>
+      <li>Forever Iframe</li>
+      <li>JSONP Polling</li>
+	</ul>
+<div id="code11" name="code" class="code" mode="javascript" style="display: none;">/* Server */
+var io = require('socket.io').listen(80);
+
+var chat = io
+  .of('/chat')
+  .on('connection', function (socket) {
+    socket.emit('a message', {
+        that: 'only'
+      , '/chat': 'will get'
+    });
+    chat.emit('a message', {
+        everyone: 'in'
+      , '/chat': 'will get'
+    });
+  });
+
+var news = io
+  .of('/news')
+  .on('connection', function (socket) {
+    socket.emit('item', { news: 'item' });
+  });
+
+
+
+/* --------------------------------------------------*/
+
+
+
+/* client */
+var chat = io.connect('http://localhost/chat')
+  , news = io.connect('http://localhost/news');
+  
+chat.on('connect', function () {
+  chat.emit('hi!');
+});
+  
+news.on('news', function () {
+  news.emit('woot');
+});
+
+</div>	
+</section>
+
+<section class="slide" id="resources">
+	<h2>Resources</h2>
+	<p><strong>General Node resources:</strong></p>
+
+	<ul>
+		<li>http://nodetuts.com/</li>
+		<li>http://delicious.com/alessioaw/nodejs</li>
+		<li>http://net.tutsplus.com/tutorials/javascript-ajax/how-to-scrape-web-pages-with-node-js-and-jquery/</li>
+		<li>http://technosophos.com/content/nodejs-debugging-built-debugger</li>
+	</ul>
+
+	<p><strong>Ebooks:</strong></p>
+
+	<ul>
+		<li>http://nodetuts.com/handson-nodejs-book.html
+		<li>Node Beginner Book (free online): http://www.nodebeginner.org/
+		<li>Mixu's Node book (free online): http://book.mixu.net/
+		<li>Node Web Development http://www.packtpub.com/node-javascript-web-development/book
+	</ul>
+</section>
+
+<section class="slide" id="questions">
+	<h2>Questions?</h2>
+	
+	<p>Buzz me anytime: </p> <strong>alexandru.vladutu@gmail.com</strong>
+</section>
+
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="BC_Forward" method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="BC_Forward" title="Permalink to this slide" class="deck-permalink">#</a>
+
+
+<!-- Grab CDN jQuery, with a protocol relative URL; fall back to local if offline -->
+<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+<script>window.jQuery || document.write('<script src="../deckjs/jquery-1.7.min.js"><\/script>')</script>
+
+<!-- Deck Core and extensions -->
+<script src="../deckjs/core/deck.core.js"></script>
+<script src="../deckjs/extensions/hash/deck.hash.js"></script>
+<script src="../deckjs/extensions/menu/deck.menu.js"></script>
+<script src="../deckjs/extensions/goto/deck.goto.js"></script>
+<script src="../deckjs/extensions/status/deck.status.js"></script>
+<script src="../deckjs/extensions/navigation/deck.navigation.js"></script>
+
+<!-- Base codemiror code -->
+<script src="../deckjs/extensions/codemirror/codemirror.js"></script>
+
+<!-- Syntax highlighting Modes -->
+
+<!-- javascript -->
+<script src="../deckjs/extensions/codemirror/mode/javascript/javascript.js"></script>
+
+<!-- html mode (note html mode requires xml, css and javascript) -->
+<script src="../deckjs/extensions/codemirror/mode/xml/xml.js"></script>
+<script src="../deckjs/extensions/codemirror/mode/css/css.js"></script>
+<script src="../deckjs/extensions/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+<!-- Plugin code -->
+<script src="../deckjs/extensions/codemirror/deck.codemirror.js"></script>
+
+
+<!-- Initialize the deck -->
+<script>
+$(function() {
+	$.deck('.slide');
+});
+</script>
+
+</body>
+</html>
