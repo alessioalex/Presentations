@@ -1,3 +1,5 @@
+Disclamer: these apps were made in a rush somewhat, so they can be optimized ;)
+
 Before everything:
 
 - make sure you have Node.js & NPM installed (checkout my slides for details on how to do that)
