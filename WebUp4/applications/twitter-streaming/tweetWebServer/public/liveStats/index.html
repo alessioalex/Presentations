@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Live Memory Stats</title>
+  <script type="text/javascript" src="../javascripts/jquery-1.7.2.min.js"></script>
+  <script type="text/javascript" src="highcharts.js"></script>
+  <script type="text/javascript" src="highcharts.exporting.js"></script>
+  <script type="text/javascript" src="highcharts.theme.grid.js"></script>
+  <script type="text/javascript" src='../socket.io/socket.io.js'></script>
+  <script type="text/javascript">
+    var chart;
+
+    function bootLiveData() {
+      var socket, apps = {
+        'Tweet Broadcaster' : 0,
+        'Tweet to Database' : 1,
+        'Tweet WebServer'   : 2
+      };
+
+      setTimeout(function() {
+        socket = io.connect('/memory');
+        socket.on('memUsg', function (data) {
+          var point = {}, currentTime, appPos, shift;
+
+          data = JSON.parse(data);
+          if (console && console.log) { console.log('data', data); }
+          appPos = apps[data.appName];
+          currentTime = new Date();
+          point.x = currentTime.getTime();
+          point.y = parseFloat(data.usage.split(" ")[0]);
+          series = chart.series[appPos];
+          // shift = series.data.length > 20; // shift if the series is longer than 20
+          shift = false;
+          // add the point
+          chart.series[appPos].addPoint(point, true, shift);
+          console.log('point', point);
+        });
+      }, 2000);
+    }
+
+    $(function() {
+
+      chart = new Highcharts.Chart({
+          chart: {
+              renderTo: 'graph',
+              defaultSeriesType: 'spline',
+              events: {
+                  load: bootLiveData
+              }
+          },
+          title: {
+              text: 'Live Memory Usage Stats'
+          },
+          xAxis: {
+              type: 'datetime',
+              tickPixelInterval: 150,
+              maxZoom: 20 * 1000
+          },
+          yAxis: {
+              minPadding: 0.2,
+              maxPadding: 0.2,
+              title: {
+                  text: 'MB',
+                  margin: 80
+              }
+          },
+          series: [{
+              name: 'Tweet Broadcaster',
+              data: []
+          },{
+              name: 'Tweet to Database',
+              data: []
+          },{
+              name: 'Tweet WebServer',
+              data: []
+          }]
+      });
+
+    });
+  </script>
+</head>
+<body>
+  <div id="graph"></div>
+</body>
+</html>

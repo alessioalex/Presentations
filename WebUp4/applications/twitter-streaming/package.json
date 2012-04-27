@@ -1,0 +1,20 @@
+{
+    "name"        : "WebUp",
+    "description" : "Node.js presentation for WebUp",
+    "version"     : "0.0.1",
+    "author"      : "Alexandru Vladutu",
+    "engines"     : {
+      "node": ">=0.6.x"
+    },
+    "dependencies": {
+      "express"         : "2.x.x",
+      "connect"         : "2.1.x",
+      "connect-timeout" : "0.0.1",
+      "connect-redis"   : "1.3.x",
+      "ntwitter"        : "0.3.x",
+      "socket.io"       : "0.9.x",
+      "mongodb"         : "0.9.x",
+      "jade"            : "0.22.x",
+      "colors"          : "*"
+    }
+}

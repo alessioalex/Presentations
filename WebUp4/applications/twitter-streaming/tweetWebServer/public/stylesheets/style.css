@@ -1,0 +1,104 @@
+html {
+  height: 100%;
+}
+body {
+  background: #1b1c20; /* Old browsers */
+  /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+  background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPHJhZGlhbEdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjUwJSIgcj0iNzUlIj4KICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMxYjFjMjAiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjM2IzZjQ4IiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L3JhZGlhbEdyYWRpZW50PgogIDxyZWN0IHg9Ii01MCIgeT0iLTUwIiB3aWR0aD0iMTAxIiBoZWlnaHQ9IjEwMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+  background: -moz-radial-gradient(center, ellipse cover,  #1b1c20 0%, #3b3f48 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#1b1c20), color-stop(100%,#3b3f48)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  #1b1c20 0%,#3b3f48 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  #1b1c20 0%,#3b3f48 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  #1b1c20 0%,#3b3f48 100%); /* IE10+ */
+  background: radial-gradient(center, ellipse cover,  #1b1c20 0%,#3b3f48 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1b1c20', endColorstr='#3b3f48',GradientType=1 ); /* IE6-8 fallback on horizontal gradient */
+}
+#container {
+  background: #262626;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  font-family: Comic Sans MS, Verdana;
+  height: 500px;
+  margin: 20px auto;
+  width: 80%;
+  box-shadow: 0 0 5px #DEDEDE;
+  -webkit-box-shadow: 0 0 5px #DEDEDE;
+  -moz-box-shadow: 0 0 5px #DEDEDE;
+}
+#container p {
+  color: #CFD1D3;
+}
+#container h1 {
+  color: #8CAB63;
+  display: inline-block;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 20px 0 20px 10px;
+  padding-bottom: 10px;
+  text-shadow: 1px 1px 1px #000000;
+}
+#latest_tweets {
+  height: 400px;
+  list-style-type: none;
+  overflow: auto;
+  padding: 0 10px;
+}
+#latest_tweets li {
+  border-top: 1px dotted #CCCCCC;
+  clear: both;
+  height: 55px;
+  padding: 10px 0;
+}
+#latest_tweets li.odd {
+  background: #000000;
+}
+a {
+  color: #E17048;
+  text-decoration: none;
+}
+#allTweets {
+  margin: 15px 20px;
+}
+#latest_tweets a.user_name {
+  color: #8CAB63;
+  display: block;
+  font-style: italic;
+  margin-top: 5px;
+  text-decoration: none;
+}
+#latest_tweets img {
+  border: 1px solid #CCCCCC;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  float: left;
+  height: 48px;
+  margin-right: 7px;
+  padding: 2px;
+  width: 48px;
+}
+div.overlay {
+  background: #000000;
+  height: 100%;
+  left: 0;
+  opacity: 0.8;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 2999;
+}
+div.loading {
+  background: none repeat scroll 0 0 #FFFFFF;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+  display: block;
+  font-size: 20px;
+  height: 50px;
+  margin-left: 20%;
+  padding: 25px;
+  position: fixed;
+  width: 300px;
+  z-index: 3000;
+}

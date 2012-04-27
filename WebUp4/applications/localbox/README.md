@@ -7,7 +7,6 @@ npm install -g coffee-script
 
 Running the twitter app:
 
-- Install dependencies (run cmd in the directory of the app): npm install .
 - Register a Twitter application to https://dev.twitter.com/ and obtain the consumer key, consumer secret, access key token and access key secret. Put them all into config.json.
 - Start the broadcaster into the terminal:
 coffee tweetBroadcaster.coffee "nodejs, html5, javascript, css3"
@@ -24,7 +23,6 @@ Then visit http://localhost/ and enjoy the live stream. For the memory stats in 
 
 Running the localbox app (sync files app):
 
-- Install dependencies (run cmd in the directory of the app): npm install .
 - Run the following command into the terminal:
 coffee app.coffee
 

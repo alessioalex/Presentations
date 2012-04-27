@@ -1,0 +1,10 @@
+script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
+script(src='/socket.io/socket.io.js')
+script(src='/javascripts/core.js')
+script(src='/javascripts/allTweets.js')
+
+div#container
+  h1 Last 100 tweets (from db)
+  div.overlay
+  div.loading Loading tweets, please wait...
+  ul#latest_tweets
